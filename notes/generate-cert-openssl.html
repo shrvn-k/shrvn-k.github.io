@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112032547-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-112032547-1');
+	</script>
+	<title>How to generate a self-signed certificate using a single openssl command | Shravan Kanagokar</title>
+	<style>body {font-size: 1.1em; line-height: 1.5em; max-width: 45em; margin: auto; padding: 0 2%;} img {max-width: 100%; display: block; margin: .75em auto;} a {text-decoration: none;}</style>
+</head>
+<body>
+	<a href="../index.html">Home</a> |
+	<a href="../what-i-use.html">What I Use</a> |
+	<a href="../best-of.html">Best Of</a> |  
+	<a href="../notes.html">Notes</a> |  
+	<a href="../contact.html">Contact</a>
+	<h1>Shravan Kanagokar</h1>
+	<hr>
+	<br>
+	<h2>How to generate a self-signed certificate using a single <code>openssl</code> command</h2>
+	<p>This command generates an SSL certificate in a single step:</p>
+	<code>openssl req -x509 -newkey 2048 -nodes -keyout key.pem -out cert.pem -days 365 -batch -subj '/CN=domain-name'</code>
+	<p>Breakdown of the options:</p>
+	<ul>
+		<li><code>-x509</code>: generate an actual certificate and not a certificate request</li>
+		<li><code>-newkey 2048</code>: generate a new 2048-bit RSA key</li>
+		<li><code>-nodes</code>: "no DES" not "nodes" - don't encrypt the private key</li>
+		<li><code>-keyout key.pem</code>: save the key in <code>key.pem</code></li>
+		<li><code>-out cert.pem</code>: save the certificate in <code>cert.pem</code></li>
+		<li><code>-days 365</code>: number of days this certificate is valid. The default is 30 days if this is not specified</li>
+		<li><code>-batch</code>: don't prompt for all the additional fields when generating certificate</li>
+		<li><code>-'/CN=domain-name'</code>: the domain for which this certificate is valid</li>
+	</ul>
+</body>
+</html>

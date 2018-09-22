@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112032547-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-112032547-1');
+	</script>
+	<title>How to generate timestamped rotating packet captures using tcpdump | Shravan Kanagokar</title>
+	<style>body {font-size: 1.1em; line-height: 1.5em; max-width: 45em; margin: auto; padding: 0 2%;} img {max-width: 100%; display: block; margin: .75em auto;} a {text-decoration: none;}</style>
+</head>
+<body>
+	<a href="../index.html">Home</a> |
+	<a href="../what-i-use.html">What I Use</a> |
+	<a href="../best-of.html">Best Of</a> |  
+	<a href="../notes.html">Notes</a> |  
+	<a href="../contact.html">Contact</a>
+	<h1>Shravan Kanagokar</h1>
+	<hr>
+	<br>
+	<h2>How to generate timestamped rotating packet captures using <code>tcpdump</code></h2>
+	<p>This command will capture the first 350 bytes of the packet and will save 20 files of 100MB each while also overwriting the old captures:</p>
+	<code>sudo tcpdump -i eth0 -s 350 -C 100 -W 20 -w /var/tmp/capture-$(date +%Y-%m-%d:%H:%M:%S).pcap</code>
+	<p>Breakdown of the options:</p>
+	<ul>
+		<li><code>-i eth0</code>: capture on the <code>eth0</code> interface. Replace <code>eth0</code> with <code>all</code> to capture on all interfaces.</li>
+		<li><code>-s 350</code>: snapshot length. Capture 350 bytes of each packet.</li>
+		<li><code>-C 100</code>: filesize. keep each file at 100 Megabytes.</li>
+		<li><code>-W 20</code>: filecount. Capture 20 files.</li>
+		<li><code>-w /var/tmp/capture-$(date +%Y-%m-%d:%H:%M:%S).pcap</code>: write timestamped file to <code>/var/tmp/</code></li>
+	</ul>
+	<h2>Bonus tip</h2>
+	<p>On an AWS EC2 instance, you can use the instance metadata URL to add the instance ID to the filename. Useful when you have multiple captures on different servers.</p>
+	<code>sudo tcpdump -i eth0 -s 350 -C 100 -W 20 -w /var/tmp/$(curl http://169.254.169.254/latest/meta-data/instance-id)-$(date +%Y-%m-%d:%H:%M:%S).pcap</code>
+</body>
+</html>

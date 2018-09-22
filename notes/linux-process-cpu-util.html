@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112032547-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-112032547-1');
+	</script>
+	<title>How to get per-process CPU utilization in Linux | Shravan Kanagokar</title>
+	<style>body {font-size: 1.1em; line-height: 1.5em; max-width: 45em; margin: auto; padding: 0 2%;} img {max-width: 100%; display: block; margin: .75em auto;} a {text-decoration: none;}</style>
+</head>
+<body>
+	<a href="../index.html">Home</a> |
+	<a href="../what-i-use.html">What I Use</a> |
+	<a href="../best-of.html">Best Of</a> |  
+	<a href="../notes.html">Notes</a> |  
+	<a href="../contact.html">Contact</a>
+	<h1>Shravan Kanagokar</h1>
+	<hr>
+	<br>
+	<h2>How to get per-process CPU utilization in Linux</h2>
+	<p>This command returns the total CPU utilization of the specified <code>process-name</code>:</p>
+	<code>ps aux | grep process-name  | awk '{sum += $3}; END {print sum}'</code>
+	<p>Breakdown of the command:</p>
+	<ul>
+		<li><code>ps aux</code>: get all processes and info</li>
+		<li><code>grep process-name</code>: filter all lines with the process name. Processes such as <code>httpd</code> have multiple workers.</li>
+		<li><code>awk '{sum += $3}; END {print sum1}</code>: add up CPU usage of all processes and print the sum.</li>
+	</ul>
+</body>
+</html>
